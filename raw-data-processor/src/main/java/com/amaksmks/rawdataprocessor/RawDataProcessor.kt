@@ -22,7 +22,8 @@ import java.io.FileInputStream
  *     ...
  * ]
  */
-@Serializable data class RamcharitmanasDTO(val type: String, val content: String, val kaand: String)
+@Serializable
+data class RamcharitmanasDTO(val type: String, val content: String, val kaand: String)
 
 /**
  * ValmikiRamayana
@@ -36,7 +37,8 @@ import java.io.FileInputStream
  *   ...
  * ]
  */
-@Serializable data class ValmikiRamayanaDTO(val kaanda: String, val sarg: Int, val shloka: Int, val text: String)
+@Serializable
+data class ValmikiRamayanaDTO(val kaanda: String, val sarg: Int, val shloka: Int, val text: String)
 
 /**
  * Rigveda
@@ -50,7 +52,8 @@ import java.io.FileInputStream
  *     ...
  * ]
  */
-@Serializable data class RigvedaDTO(val veda: String, val mandala: Int, val sukta: Int, val text: String)
+@Serializable
+data class RigvedaDTO(val veda: String, val mandala: Int, val sukta: Int, val text: String)
 
 /**
  * SrimadBhagvadGita
@@ -79,7 +82,8 @@ data class SrimadBhagvadGitaWrapper(
     val bhagavadGitaChapter: List<SrimadBhagvadGitaVerseDTO>
 )
 
-@Serializable data class SrimadBhagvadGitaVerseDTO(
+@Serializable
+data class SrimadBhagvadGitaVerseDTO(
     val chapter: Int, val verse: Int, val text: String,
     val commentaries: Map<String, String>, val translations: Map<String, String>
 )
@@ -104,9 +108,11 @@ data class SrimadBhagvadGitaWrapper(
  * 567 is the verse number.
  * The letter, usually a or c denotes the first or second half of the śloka, in other words ślokārdha.
  */
-@Serializable data class MahabharataValueDTO(val text: MahabharataTextDTO)
+@Serializable
+data class MahabharataValueDTO(val text: MahabharataTextDTO)
 
-@Serializable data class MahabharataTextDTO(val ud: String, val ur: String, val ascii: String)
+@Serializable
+data class MahabharataTextDTO(val ud: String, val ur: String, val ascii: String)
 
 enum class MahabharataParva(val id: Int, val devnagari: String) {
     ADI(1, "आदी पर्व"),
@@ -147,7 +153,13 @@ enum class MahabharataParva(val id: Int, val devnagari: String) {
  * ]
  */
 @Serializable
-data class AtharvaVedaDTO(val veda: String, val samhita: String, val kaanda: Int, val sukta: Int, val text: String)
+data class AtharvaVedaDTO(
+    val veda: String,
+    val samhita: String,
+    val kaanda: Int,
+    val sukta: Int,
+    val text: String
+)
 
 /**
  * yajurveda
@@ -240,10 +252,10 @@ class RawDataProcessor {
 
     fun run() {
         if (!jsonOutputDir.exists()) jsonOutputDir.mkdirs()
-        val jsonOutputFile = File(jsonOutputDir, "sanatan_texts.json")
+        val jsonOutputFile = File(jsonOutputDir, "sanatan_granth.json")
 
-        if(!dbOutputDir.exists()) dbOutputDir.mkdirs()
-        val dbOutputFile = File(dbOutputDir, "sanatan_texts.db")
+        if (!dbOutputDir.exists()) dbOutputDir.mkdirs()
+        val dbOutputFile = File(dbOutputDir, "sanatan_granth.db")
 
 
         println("[START] Writing master texts to ${jsonOutputFile.absolutePath}")
@@ -265,12 +277,14 @@ class RawDataProcessor {
                     val verse = Verse(
                         bookName = "रामचरितमानस",
                         majorDivision = it.kaand,
-                        verseIdentifier = "${i+1}",
+                        verseIdentifier = "${i + 1}",
                         originalText = it.content,
-                        metadata = json.encodeToString(mapOf(
-                            "type" to it.type,
-                            "source_file" to file.path
-                        ))
+                        metadata = json.encodeToString(
+                            mapOf(
+                                "type" to it.type,
+                                "source_file" to file.path
+                            )
+                        )
                     )
                     writeVerse(verse)
                 }
@@ -296,10 +310,12 @@ class RawDataProcessor {
                         minorDivision = "सर्ग ${it.sarg}",
                         verseIdentifier = "श्लोक ${it.shloka}",
                         originalText = it.text,
-                        metadata = json.encodeToString(mapOf(
-                            "kaanda" to it.kaanda,
-                            "source_file" to file.path
-                        ))
+                        metadata = json.encodeToString(
+                            mapOf(
+                                "kaanda" to it.kaanda,
+                                "source_file" to file.path
+                            )
+                        )
                     )
                     writeVerse(verse)
                 }
@@ -315,9 +331,11 @@ class RawDataProcessor {
                         majorDivision = "मण्डल ${it.mandala}",
                         minorDivision = "सूक्त ${it.sukta}",
                         originalText = it.text,
-                        metadata = json.encodeToString(mapOf(
-                            "source_file" to file.path
-                        ))
+                        metadata = json.encodeToString(
+                            mapOf(
+                                "source_file" to file.path
+                            )
+                        )
                     )
                     writeVerse(verse)
                 }
@@ -335,9 +353,11 @@ class RawDataProcessor {
                         originalText = it.text,
                         commentariesJson = json.encodeToString(it.commentaries),
                         translationsJson = json.encodeToString(it.translations),
-                        metadata = json.encodeToString(mapOf(
-                            "source_file" to file.path
-                        ))
+                        metadata = json.encodeToString(
+                            mapOf(
+                                "source_file" to file.path
+                            )
+                        )
                     )
                     writeVerse(verse)
                 }
@@ -399,10 +419,12 @@ class RawDataProcessor {
                         majorDivision = "${atharvaSamhitaMap[it.samhita] ?: it.samhita} • काण्ड ${it.kaanda}",
                         minorDivision = "सूक्त ${it.sukta}",
                         originalText = it.text,
-                        metadata = json.encodeToString(mapOf(
-                            "samhita" to it.samhita,
-                            "source_file" to file.path
-                        ))
+                        metadata = json.encodeToString(
+                            mapOf(
+                                "samhita" to it.samhita,
+                                "source_file" to file.path
+                            )
+                        )
                     )
                     writeVerse(verse)
                 }
@@ -423,10 +445,12 @@ class RawDataProcessor {
                         majorDivision = yajurvedaSamhitaMap[it.samhita] ?: it.samhita,
                         minorDivision = "अध्याय ${it.chapter}",
                         originalText = it.text,
-                        metadata = json.encodeToString(mapOf(
-                            "samhita" to it.samhita,
-                            "source_file" to file.path
-                        ))
+                        metadata = json.encodeToString(
+                            mapOf(
+                                "samhita" to it.samhita,
+                                "source_file" to file.path
+                            )
+                        )
                     )
                     writeVerse(verse)
                 }
@@ -442,10 +466,12 @@ class RawDataProcessor {
                         majorDivision = yajurvedaSamhitaMap[it.samhita] ?: it.samhita,
                         minorDivision = "अध्याय ${it.adhyaya}",
                         originalText = it.text,
-                        metadata = json.encodeToString(mapOf(
-                            "samhita" to it.samhita,
-                            "source_file" to file.path
-                        ))
+                        metadata = json.encodeToString(
+                            mapOf(
+                                "samhita" to it.samhita,
+                                "source_file" to file.path
+                            )
+                        )
                     )
                     writeVerse(verse)
                 }
@@ -466,8 +492,8 @@ class RawDataProcessor {
 
         DriverManager.getConnection("jdbc:sqlite:${dbFile.absolutePath}").use { conn ->
             conn.autoCommit = false
-
             val setupStmt = conn.createStatement()
+
             setupStmt.execute("""
             CREATE TABLE IF NOT EXISTS verses (
                 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -487,7 +513,6 @@ class RawDataProcessor {
 
             println("Reading $jsonFile into database...")
             val inputStream = FileInputStream(jsonFile)
-
             val verses = json.decodeFromStream<List<Verse>>(inputStream)
 
             verses.forEachIndexed { index, verse ->
@@ -501,26 +526,33 @@ class RawDataProcessor {
                 pstmt.setString(8, verse.metadata)
                 pstmt.addBatch()
 
-                if (index % 1000 == 0) {
-                    pstmt.executeBatch()
-                }
+                if (index % 1000 == 0) pstmt.executeBatch()
             }
 
             pstmt.executeBatch()
-            conn.commit()
 
-            // TODO: Work on this to make it better.
-            setupStmt.execute("CREATE INDEX idx_search ON verses(bookName, majorDivision)")
+            // Create Navigation Index
+            setupStmt.execute("CREATE INDEX idx_book_navigation ON verses(bookName, majorDivision, minorDivision)")
 
-            println("Database generation complete: ${dbFile.length() / 1024 / 1024} MB")
+            // Create Room Master Table
+            setupStmt.execute("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY, identity_hash TEXT)")
+            val myHash = "eb1be500c007349304f9806590a3a4fe"
+            setupStmt.execute("INSERT OR REPLACE INTO room_master_table (id, identity_hash) VALUES(42, '$myHash')")
 
-            val masterStmt = conn.createStatement()
-            masterStmt.execute("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY, identity_hash TEXT)")
-
-            val myHash = "eb1be500c007349304f9806590a3a4fe" // Identity hash from AppDatabase_Impl.kt
-            masterStmt.execute("INSERT OR REPLACE INTO room_master_table (id, identity_hash) VALUES(42, '$myHash')")
+            // Create FTS5 Table
+            setupStmt.execute("CREATE VIRTUAL TABLE verses_fts USING fts5(originalText, content='verses', content_rowid='id')")
+            setupStmt.execute("INSERT INTO verses_fts(rowid, originalText) SELECT id, originalText FROM verses")
 
             conn.commit()
         }
+
+        println("Optimizing and vacuuming database...")
+        DriverManager.getConnection("jdbc:sqlite:${dbFile.absolutePath}").use { conn ->
+            val finalStmt = conn.createStatement()
+            finalStmt.execute("ANALYZE")
+            finalStmt.execute("VACUUM")
+        }
+
+        println("Database generation complete: ${dbFile.length() / 1024 / 1024} MB")
     }
 }

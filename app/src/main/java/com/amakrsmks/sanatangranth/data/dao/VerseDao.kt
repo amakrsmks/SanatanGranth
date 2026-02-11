@@ -6,9 +6,9 @@ import com.amakrsmks.sanatangranth.data.entity.Verse
 
 @Dao
 interface VerseDao {
-    @Query("SELECT * FROM verses WHERE bookName = :book AND majorDivision = :division")
-    suspend fun getVersesByDivision(book: String, division: String): List<Verse>
+    @Query("SELECT * FROM verses WHERE bookName = :book")
+    suspend fun getVersesByBook(book: String): List<Verse>
 
-    @Query("SELECT * FROM verses WHERE originalText LIKE '%' || :query || '%'")
+    @Query("SELECT * FROM verses WHERE originalText LIKE '%' || :query || '%' LIMIT 100")
     suspend fun searchVerses(query: String): List<Verse>
 }

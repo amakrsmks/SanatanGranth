@@ -9,7 +9,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import jakarta.inject.Singleton
+import javax.inject.Singleton
 import kotlin.jvm.java
 
 @Module
@@ -22,15 +22,13 @@ object DatabaseModule {
         return Room.databaseBuilder(
             context,
             AppDatabase::class.java,
-            "sanatan_texts.db"
+            "sanatan_granth.db"
         )
-            .createFromAsset("databases/sanatan_texts.db")
+            .createFromAsset("databases/sanatan_granth.db")
             .fallbackToDestructiveMigration(true)
             .build()
     }
 
     @Provides
-    fun provideVerseDao(database: AppDatabase): VerseDao {
-        return database.verseDao()
-    }
+    fun provideVerseDao(db: AppDatabase): VerseDao = db.verseDao()
 }
