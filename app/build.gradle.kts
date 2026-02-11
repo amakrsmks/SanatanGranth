@@ -1,10 +1,17 @@
+import java.io.FileInputStream
+import java.util.Properties
+
+val keystorePropertiesFile: File = rootProject.file("keystore.properties")
+val keystoreProperties = Properties()
+keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
 }
 
 android {
-    namespace = "com.example.sanatantexts"
+    namespace = "com.amakrsmks.sanatantexts"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -12,22 +19,32 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.sanatantexts"
+        applicationId = "com.amakrsmks.sanatantexts"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file(keystoreProperties["keyStoreFile"]!!.toString())
+            storePassword = keystoreProperties["keyStorePassword"]!!.toString()
+            keyAlias = keystoreProperties["keyAlias"]!!.toString()
+            keyPassword = keystoreProperties["keyPassword"]!!.toString()
+        }
+    }
+
+
     buildTypes {
-        release {
+        getByName("release") {
+            // TODO: Change as per need in the future when building.
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
@@ -46,13 +63,5 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }

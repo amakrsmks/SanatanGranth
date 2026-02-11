@@ -1,4 +1,4 @@
-package com.example.sanatantexts.ui.theme
+package com.amakrsmks.sanatantexts.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

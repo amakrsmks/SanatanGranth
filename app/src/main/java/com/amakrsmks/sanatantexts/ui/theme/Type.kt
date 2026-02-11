@@ -1,4 +1,4 @@
-package com.example.sanatantexts.ui.theme
+package com.amakrsmks.sanatantexts.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
