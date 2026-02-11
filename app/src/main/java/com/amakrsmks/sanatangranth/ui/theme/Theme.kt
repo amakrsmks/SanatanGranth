@@ -1,4 +1,4 @@
-package com.amakrsmks.sanatantexts.ui.theme
+package com.amakrsmks.sanatangranth.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -33,7 +33,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun SanatanTextsTheme(
+fun SanatanGranthTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,

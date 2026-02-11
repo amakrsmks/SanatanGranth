@@ -22,6 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Sanatan Texts"
+rootProject.name = "Sanatan Granth"
 include(":app")
 include(":raw-data-processor")

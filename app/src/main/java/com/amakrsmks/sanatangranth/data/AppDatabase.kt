@@ -1,9 +1,9 @@
-package com.amakrsmks.sanatantexts.data
+package com.amakrsmks.sanatangranth.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.amakrsmks.sanatantexts.data.dao.VerseDao
-import com.amakrsmks.sanatantexts.data.entity.Verse
+import com.amakrsmks.sanatangranth.data.dao.VerseDao
+import com.amakrsmks.sanatangranth.data.entity.Verse
 
 @Database(entities = [Verse::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {

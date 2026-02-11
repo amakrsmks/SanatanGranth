@@ -1,4 +1,4 @@
-package com.amakrsmks.sanatantexts.data.entity
+package com.amakrsmks.sanatangranth.data.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

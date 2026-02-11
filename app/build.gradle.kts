@@ -14,7 +14,7 @@ plugins {
 }
 
 android {
-    namespace = "com.amakrsmks.sanatantexts"
+    namespace = "com.amakrsmks.sanatangranth"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -22,7 +22,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.amakrsmks.sanatantexts"
+        applicationId = "com.amakrsmks.sanatangranth"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

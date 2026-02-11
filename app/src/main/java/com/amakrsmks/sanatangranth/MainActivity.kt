@@ -1,4 +1,4 @@
-package com.amakrsmks.sanatantexts
+package com.amakrsmks.sanatangranth
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.amakrsmks.sanatantexts.ui.theme.SanatanTextsTheme
+import com.amakrsmks.sanatangranth.ui.theme.SanatanGranthTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            SanatanTextsTheme {
+            SanatanGranthTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
                         name = "Android",
